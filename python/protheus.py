@@ -4,28 +4,35 @@ import time
 import keyboard
 import pygetwindow as gw
 
-# planilha = load_workbook('credenciais.xlsx')
-# pagina = planilha['Plan1']
+planilha = load_workbook('Produtos.xlsx', data_only=True)  
 
-# produto = []
-# quantidade = []
-# armazen = []
-# documento = 123456z
-# for dados in pagina.iter_rows(values_only=True):
-#     produto.append(dados[0])
-#     quantidade.append(dados[1])
-#     armazen.append(dados[2])
+pagina = planilha['Sheet1']
+
+produto = []
+quantidade = []
+armazen = []
+documento = "18A9782A"
+
+linha = 0
+for dados in pagina.iter_rows(values_only=True):
+    if linha == 0:
+        pass
+    else:
+        produto.append(dados[0])
+        quantidade.append(dados[1])
+        armazen.append(dados[2])
+    linha = linha + 1
 
 def clicar(vezes, tecla):
-    i = 0
-    while i < vezes: 
+    for vez in range(vezes):
+        time.sleep( 0.1) 
         keyboard.send(tecla)
-        i = i + 1  
-
+     
+time.sleep(1) 
 keyboard.send('windows')
 
 time.sleep(1)
-pyautogui.write("smartview")
+pyautogui.write("Totvs")
 
 time.sleep(1)
 keyboard.send('enter')
@@ -38,21 +45,29 @@ time.sleep(1)
 keyboard.send('tab')
 pyautogui.write("sccp@1910")
 
-time.sleep(3)
 keyboard.send('tab')
 keyboard.send('enter')
 
-time.sleep(3)
-clicar(3, 'tab')
-pyautogui.write('721914')
+for i in range(len(produto)):
+    if i == 0:
+        time.sleep(3)
+        clicar(3, 'tab')
+        pyautogui.write(str(produto[i]))    
+    else: 
+        time.sleep(3)
+        clicar(1, 'tab')
+        pyautogui.write(str(produto[i]))
+    
+    clicar(1, 'tab')
+    pyautogui.write(str(quantidade[i]))
 
-clicar(1, 'tab')
-pyautogui.write("1")
+    clicar(5, 'tab')
+    pyautogui.write(str(armazen[i]))
 
-clicar(5, 'tab')
-pyautogui.write("03")
+    clicar(12, 'tab')
+    pyautogui.write(str(documento))
 
-clicar(10, 'tab')
-pyautogui.write("45788")
+    clicar(7, 'tab')
+    keyboard.send('enter')
 
 
